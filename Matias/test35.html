@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contador</title>
+</head>
+
+<body>
+    <div id="contador"></div>
+
+    <script>
+
+        function MiTexto(i) {
+            return "Hola Mundo " + i;
+        }
+
+        let i = 1;
+        let contadorDiv = document.getElementById("contador");
+        let texto = "";
+        let intervalId = setInterval(() => {
+            texto = MiTexto(i) + "." + texto;
+            contadorDiv.innerHTML = texto;
+            i++;
+            if (i > 100) {
+                clearInterval(intervalId);
+            }
+        }, 1000);
+    </script>
+</body>
+
+</html>
+
+
+
+<!-- 
+<html>
+
+<head>
+    <script>
+        /*
+        for (let i = 1; i <= 100; i++) {
+            console.log(i);
+        }*/
+
+        let i = 1;
+
+        let intervalId = setInterval(() => {
+            console.log(i);
+            i++;
+            if (i > 100) {
+                clearInterval(intervalId);
+            }
+        }, 1000);
+
+
+    </script>
+</head>
+
+<body>
+    Hola Mundo!
+</body>
+
+</html>
+-->
+
+<!-- 
+
+
+      /*
+        let edad = 34;
+        let edadAjustada;
+        if (edad <= 18) {
+            edadAjustada = 19;
+        } else if (edad >= 19 || edad <= 24) {
+            edadAjustada = 19;
+        } else if (edad >= 25 || edad <= 29) {
+            edadAjustada = 25;
+        } else if (edad >= 30 || edad <= 34) {
+            edadAjustada = 30;
+        } else if (edad >= 35 || edad <= 39) {
+            edadAjustada = 35;
+        } else if (edad >= 40 || edad <= 44) {
+            edadAjustada = 40;
+        } else if (edad >= 45 || edad <= 49) {
+            edadAjustada = 45;
+        } else if (edad >= 50 || edad <= 54) {
+            edadAjustada = 50;
+        } else if (edad >= 55 || edad <= 59) {
+            edadAjustada = 55;
+        } else {
+            edadAjustada = 61;
+        }
+        console.log(edadAjustada)*/
+
+
+        /*
+        let edad = 34;
+        let edadAjustada;
+
+        if (edad <= 18) {
+            edadAjustada = 19;
+        } else if (edad >= 19 && edad <= 24) {
+            edadAjustada = 19;
+        } else if (edad >= 25 && edad <= 29) {
+            edadAjustada = 25;
+        } else if (edad >= 30 && edad <= 34) {
+            edadAjustada = 30;
+        } else if (edad >= 35 && edad <= 39) {
+            edadAjustada = 35;
+        } else if (edad >= 40 && edad <= 44) {
+            edadAjustada = 40;
+        } else if (edad >= 45 && edad <= 49) {
+            edadAjustada = 45;
+        } else if (edad >= 50 && edad <= 54) {
+            edadAjustada = 50;
+        } else if (edad >= 55 && edad <= 59) {
+            edadAjustada = 55;
+        } else if (edad >= 60 && edad <= 64) {
+            edadAjustada = 60;//////////////
+        } else if (edad >= 65 && edad <= 69) {
+            edadAjustada = 65;
+        } else if (edad >= 70 && edad <= 74) {
+            edadAjustada = 70;
+        } else if (edad >= 75 && edad <= 79) {
+            edadAjustada = 75;
+        } else if (edad >= 80 && edad <= 84) {
+            edadAjustada = 80;
+        } else if (edad >= 85 && edad <= 89) {
+            edadAjustada = 85;
+        } else if (edad >= 90 && edad <= 94) {
+            edadAjustada = 90;
+        } else if (edad >= 95 && edad <= 99) {
+            edadAjustada = 95;
+        } else {
+            edadAjustada = 100;
+        }
+
+        console.log(edadAjustada);
+*/
+-->

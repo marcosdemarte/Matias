@@ -1,0 +1,11 @@
+Windows PowerShell
+Copyright (C) Microsoft Corporation. Todos los derechos reservados.
+
+Instale la versión más reciente de PowerShell para obtener nuevas características y mejoras. https://aka.ms/PSWindows
+
+PS C:\classes de marcos es cool porque escribi esto> dotnet new console -n MiProyecto
+The command could not be loaded, possibly because:
+  * You intended to execute a .NET application:
+      The application 'new' does not exist.
+  * You intended to execute a .NET SDK command:
+      No .NET SD
