@@ -1,0 +1,127 @@
+<div className=" hidden fuente-lemon py-3 p-1 md:p-6 rounded-2xl ring-2 ring-outset ring-[#ffca00] text-[0.79rem] text-white">
+
+                      <div className="grid grid-cols-1 mb-2 ">
+                        <div className="text-center ">
+                          <span>Grado muscular: </span>
+                          {dataUser[0].gradosDeMusculacion == 1 && <>Bajo</>}
+                          {dataUser[0].gradosDeMusculacion == 2 && <>Normal</>}
+                          {dataUser[0].gradosDeMusculacion == 3 && <>Alto</>}
+                          {dataUser[0].gradosDeMusculacion == 4 && (
+                            <>Muy alto</>
+                          )}
+                        </div>
+                        <div className="text-center  ">
+                          Peso: {dataUser[0].peso} kg
+                        </div>
+                        <div className="text-center text-nowrap ">
+                          <span >Grasa: {dataUser[0].porcentajeDeGrasa}%</span> {
+                            //PorcentajeDeGrasa(infoUser['sexo'], calcularEdad(fechaIngles(infoUser["fecha_nacimiento"])), Number(dataUser[0].porcentajeDeGrasa));
+                            MensajeSilueta(PorcentajeDeGrasa(infoUser['sexo'], calcularEdad(infoUser["fecha_nacimiento"]), Number(dataUser[0].porcentajeDeGrasa)))//errror 1,38,13
+                          }
+                        </div>
+                        <div className="text-center ">Índice de Masa: {dataUser[0].indiceDeMasa}</div>
+
+                      </div>
+
+
+
+
+
+
+
+                      <div className="  relative">
+
+
+
+                        <div class="relative h-300 md:h-full lg:w-[260px] m-auto ">
+                          <img
+                            src={require("../imagenes/silueta/" + Silueta(PorcentajeDeGrasa(infoUser['sexo'], calcularEdad(infoUser["fecha_nacimiento"]), Number(dataUser[0].porcentajeDeGrasa)), infoUser["sexo"]))}
+                            alt=""
+                            class="object-cover w-full h-full"
+                          />
+                        </div>
+                        <div className=" block absolute w-full h-full top-0 left-0 leading-3 ">
+
+
+
+                          <div className="absolute top-[17%] texto-sombra  ">
+                            Espalda  y
+                            <br />Pecho:<br />{dataUser[0].espaldaYpecho} cm
+                          </div>
+                          <div className="absolute top-[27%]  right-0 texto-sombra ">
+                            Bíceps:<br /> {dataUser[0].biceps} cm
+                          </div>
+                          <div className="absolute  top-[42%] texto-sombra">
+                            Cintura:<br /> {dataUser[0].cintura} cm
+                          </div>
+                          <div className="absolute  top-[48%] right-0 texto-sombra ">
+                            Cadera y <br />Cola:<br /> {dataUser[0].colaYcadera} cm
+                          </div>
+                          <div className="absolute  top-[59%] texto-sombra">
+                            Cuadriceps:<br /> {dataUser[0].cuadriceps} cm
+                          </div>
+                          <div className="absolute top-[79%] right-0 texto-sombra">
+                            Gemelos:<br /> {dataUser[0].gemelos} cm
+                          </div>
+
+
+
+
+                        </div>
+                      </div>
+
+
+                      <div className="mt-2">
+                        <div>
+                          <div className="grid grid-cols-1">
+
+
+                            <div className="text-center " >
+                              Edad: {calcularEdad(infoUser["fecha_nacimiento"])} años
+                            </div>
+                            <div className="text-center " >
+                              Altura: {infoUser["altura"]} <span className="text-[0.7rem]">mts</span>
+                            </div>
+
+                            <div className="text-center hipper">
+                              <span>Último control:</span> <span>{simplificaFecha(convertirHoraArgentina(dataUser[0].fecha), 0)}</span>
+                            </div>
+                            <div className="text-center hipper">
+                              <span>Inicio al GYM:</span> <span>{simplificaFecha(convertirHoraArgentina(infoUser["fecha_inicioGYM"]), 0)}</span>
+                            </div>
+
+                            <div className="text-center hipper">
+                              <span>Fecha nacimiento: </span> <span>{simplificaFecha(infoUser["fecha_nacimiento"], 0)}</span>
+                            </div>
+
+                          </div>
+                        </div>
+
+
+                      </div>
+
+                    </div>   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+    "scripts": {
+        "start": "npm run build:css && cross-env PORT=3005 craco start",
+        "_comentario": "quite react-scripts en start y build",
+        "build": "npm run build:css && craco build",
+        "test": "react-scripts test",
+        "eject": "react-scripts eject",
+        "build:css": "npx postcss src/estilo/estilo.css -o src/estilo/estilo_autoprefixer.css"
+    },
