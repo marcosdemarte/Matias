@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 26.5.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 1366 768" style="enable-background:new 0 0 1366 768;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill:#2ED8FF;}
+	.st1{fill:#0BD119;stroke:#000000;stroke-miterlimit:10;}
+	.st2{fill:#CE6D0D;stroke:#000000;stroke-miterlimit:10;}
+	.st3{fill:#FC0606;stroke:#000000;stroke-miterlimit:10;}
+	.st4{fill:#B97D00;stroke:#000000;stroke-miterlimit:10;}
+	.st5{opacity:0.54;fill:#F9F8F7;stroke:#000000;stroke-miterlimit:10;}
+	.st6{fill:#EDFF00;stroke:#000000;stroke-miterlimit:10;}
+</style>
+<g id="Capa_1">
+	<g>
+		<rect x="-7.5" y="-8.5" class="st0" width="1389" height="793"/>
+		<path d="M1381-8v792H-7V-8H1381 M1382-9H-8v794h1390V-9L1382-9z"/>
+	</g>
+	<path class="st1" d="M873.5,524.5"/>
+	<path class="st1" d="M1365.5,550.5v217H-0.5v-217c0,0-165.43,26,563.79,0S1365.5,550.5,1365.5,550.5z"/>
+</g>
+<g id="Capa_2">
+	<path class="st2" d="M467.5,213.5c-52-9.67-104-19.33-156-29c-6,127.67-12,255.33-18,383c62.67,5.67,125.33,11.33,188,17
+		C476.83,460.83,472.17,337.17,467.5,213.5z"/>
+	<path class="st2" d="M790.5,543.5c-107.67,13.67-215.33,27.33-323,41v-371h323C790.5,323.5,790.5,433.5,790.5,543.5z"/>
+	<path class="st3" d="M633.5,63.5c-81,8-162,16-243,24c-26.33,32.33-52.67,64.67-79,97c52,9.67,104,19.33,156,29
+		C522.83,163.5,578.17,113.5,633.5,63.5z"/>
+	<path class="st3" d="M633.5,63.5c31,0,62,0,93,0c21.33,50,42.67,100,64,150c-107.67,0-215.33,0-323,0
+		C522.83,163.5,578.17,113.5,633.5,63.5z"/>
+	<path class="st4" d="M-61.5,220.5"/>
+	<rect x="387.5" y="37.5" class="st4" width="57" height="130"/>
+	<path class="st4" d="M473.5,46.5c-9.67-3-19.33-6-29-9c0,43.33,0,86.67,0,130c10-7.67,20-15.33,30-23
+		C474.17,111.83,473.83,79.17,473.5,46.5z"/>
+	<path class="st5" d="M33.5,74.5c54,32,85,40,115,40s29.43,10,46.21-12s37.07-13,11.43-28s-20.64-31-51.64-28s-53,2-60,4
+		s-61-4.37-61-4.37c0,0-23.81,4.03-24.04,11.23c-0.03,0.96,0.42,2.29,5.26,6.14C18.73,66.69,24.89,70.91,33.5,74.5"/>
+	<path class="st6" d="M660.5,340.5h-98v232c32.67-4,65.33-8,98-12C660.5,487.17,660.5,413.83,660.5,340.5z"/>
+	<ellipse class="st6" cx="640" cy="473" rx="10.5" ry="16.5"/>
+</g>
+</svg>
