@@ -121,7 +121,8 @@ import {
   }
   
   const App: FC = () => (
-    <div style={{ flex: 1, display: 'flex' }}>
+    <div style={{ flex: 1, display: 'flex', height:'600px' }}>
+
       <SceneComponent
         canvasId="babylon-canvas"
         antialias
