@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Civilization Sim</title>
+    <style>
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(100, 10px);
+            grid-gap: 1px;
+        }
+        .cell {
+            width: 10px;
+            height: 10px;
+            text-align: center;
+            font-size: 5px;
+            color: white;
+            line-height: 10px;
+        }
+        .cell.snow {
+            color: black;
+        }
+        .unit-epic-face {
+            background-color: yellow;
+            color: black;
+        }
+        .unit-troll-face {
+            background-color: gray;
+            color: white;
+        }
+        .unit-airplane {
+            background-color: black;
+            color: white;
+        }
+        .unit-ship {
+            background-color: white;
+            color: black;
+        }
+    </style>
+</head>
+<body>
+    <div id="grid" class="grid"></div>
+    <script src="script.js"></script>
+</body>
+</html>
