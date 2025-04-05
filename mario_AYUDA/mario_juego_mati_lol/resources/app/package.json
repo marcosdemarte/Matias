@@ -1,0 +1,5 @@
+{
+    "name": "mario_juego_mati_lol",
+    "main": "electron-main.js",
+    "version": "1.0.0"
+}
