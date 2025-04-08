@@ -126,6 +126,9 @@ import {
     Materialplano.diffuseTexture.hasAlpha = true; // Indicar que la textura tiene un canal alfa
     Materialplano.alpha = 1; // Establecer el nivel de transparencia (1 significa completamente opaco)
 
+    // Configurar la escala de la textura
+    Materialplano.diffuseTexture.uScale = 1; // Escala horizontal
+    Materialplano.diffuseTexture.vScale = 2; // Escala vertical
 
     // Asignar el material al box
     plano.material = Materialplano;
@@ -188,8 +191,8 @@ import {
  window.addEventListener('keydown', (event) => {
   if (event.code === 'Space' && !isJumping) {
     isJumping = true; // Evitar múltiples saltos simultáneos
-    const jumpHeight = 3; // Altura del salto
-    const duration = 1000; // Duración en milisegundos
+    const jumpHeight = 6; // Altura del salto
+    const duration = 1500; // Duración en milisegundos
 
     // Posición inicial y final del salto
     const startY = plano.position.y;
