@@ -83,6 +83,7 @@ import {
   
   let plano: Mesh
   let cactus: Mesh
+  let cartelGameOver : Mesh
   
   const onSceneReady: OnSceneReadyHandler = (scene) => {
     // This creates and positions a free camera (non-mesh)
@@ -107,6 +108,10 @@ import {
     //CREAR BOX
     plano = MeshBuilder.CreatePlane('plano', { size: 2 }, scene)
 
+      //CREAR cartel
+    cartelGameOver = MeshBuilder.CreatePlane('gameOver', { size:10 }, scene)
+
+
     //CREAR plano que sea kaktus
     cactus = MeshBuilder.CreateBox('cactus', { size: 1 }, scene)
 
@@ -121,6 +126,9 @@ import {
     Materialplano.diffuseTexture.hasAlpha = true; // Indicar que la textura tiene un canal alfa
     Materialplano.alpha = 1; // Establecer el nivel de transparencia (1 significa completamente opaco)
 
+    // Configurar la escala de la textura
+    Materialplano.diffuseTexture.uScale = 1; // Escala horizontal
+    Materialplano.diffuseTexture.vScale = 2; // Escala vertical
 
     // Asignar el material al box
     plano.material = Materialplano;
@@ -130,9 +138,47 @@ import {
     plano.position.x = 1
     plano.position.y = 1
 
+
     cactus.position.x=10
     cactus.position.y=0.5
   
+
+
+
+    if (plano.intersectsMesh(cactus, false)) {
+      console.log('Colisión inicial detectada: ajustando posiciones.');
+      cactus.position.x += 5; // Mover el cactus para evitar colisión
+  }
+  
+
+
+    //TEXTURA
+    // Crear y configurar el material con una textura PNG
+    const materialGameOver = new StandardMaterial('materialGameOver', scene);
+    materialGameOver.diffuseTexture = new Texture('./assets/images/gameOver.png', scene);
+
+    //transparencia
+    // Habilitar transparencia
+    materialGameOver.diffuseTexture.hasAlpha = true; // Indicar que la textura tiene un canal alfa
+    materialGameOver.alpha = 1; // Establecer el nivel de transparencia (1 significa completamente opaco)
+
+
+    // Asignar el material al box
+    cartelGameOver.material = materialGameOver;
+   
+  
+    // Move the box upward 1/2 its height
+    cartelGameOver.position.x = 1
+    //Y ES HORIZONTE.
+    cartelGameOver.position.y = 10
+
+
+   
+
+
+
+
+
     // PISO
     MeshBuilder.CreateGround('ground', { width: 60, height: 3 }, scene)
 
@@ -145,8 +191,8 @@ import {
  window.addEventListener('keydown', (event) => {
   if (event.code === 'Space' && !isJumping) {
     isJumping = true; // Evitar múltiples saltos simultáneos
-    const jumpHeight = 3; // Altura del salto
-    const duration = 1000; // Duración en milisegundos
+    const jumpHeight = 6; // Altura del salto
+    const duration = 1500; // Duración en milisegundos
 
     // Posición inicial y final del salto
     const startY = plano.position.y;
@@ -185,8 +231,17 @@ import {
    */
 
   let direction = 1; // Dirección inicial del movimiento: 1 significa hacia la derecha
+  let gameOver=false;
+  let colisionesHabilitadas = false; // Inicialmente, las colisiones están deshabilitadas
+
+  setTimeout(() => {
+    colisionesHabilitadas = true; // Habilitar las colisiones después de 100 milisegundos
+}, 100); // Ajusta el tiempo según sea necesario
 
   const onRender: OnRenderHandler = (scene) => {
+
+
+
     
     if (cactus !== undefined) {
       const speed = 0.1; // Velocidad del movimiento
@@ -201,13 +256,40 @@ import {
     }
   
 
-
+/*
+         // Hacer el mesh (el plano) invisible
+         cartelGameOver.isVisible = false;
+*/
       // Detectar colisión entre el plano y el cactus
-      if (plano.intersectsMesh(cactus, false)) {
-        console.log('Game Over');
-        // Detener el movimiento si deseas
-        direction = 0; // Detener el cactus
+      if (colisionesHabilitadas && plano.intersectsMesh(cactus, false)) {
+
+       gameOver = true;
+
+        
+          console.log('Game Over!!!');
+    
+          // Detener el movimiento del cactus
+          direction = 0;
+      
       }
+/*
+      if(gameOver===true){
+        cartelGameOver.isVisible = true;
+      }
+
+      // Mantener el cartel visible o invisible según el estado de gameOver
+      if (!gameOver) {
+        cartelGameOver.isVisible = false;
+      }*/
+
+
+        if (!gameOver) {
+          cartelGameOver.isVisible = false;
+        }else{
+          cartelGameOver.isVisible = true;
+        }
+      
+
   
   
   }
