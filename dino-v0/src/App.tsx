@@ -106,7 +106,22 @@ import {
     light.intensity = 0.7
   
     //CREAR BOX
-    plano = MeshBuilder.CreatePlane('plano', { size: 2 }, scene)
+    //plano = MeshBuilder.CreatePlane('plano', { size: 2 }, scene)
+     plano = MeshBuilder.CreatePlane("plano", { width: 2, height: 2.5 }, scene);
+
+    // Crear un plano para mostrar el texto
+    const barraSuperior = MeshBuilder.CreatePlane("barraSuperior", 
+    { width: 16, height: 2 }, scene);
+    barraSuperior.position = new Vector3(8, 14, 0);
+
+    // Crear una textura dinámica para el texto
+    // const advancedTexture = AdvancedDynamicTexture.CreateForMesh(barraSuperior);
+    // const textBlock = new TextBlock();
+    // textBlock.text = "¡Hola, Babylon.js!";
+    // textBlock.color = "white";
+    // textBlock.fontSize = 24;
+
+    // advancedTexture.addControl(textBlock);
 
       //CREAR cartel
     cartelGameOver = MeshBuilder.CreatePlane('gameOver', { size:10 }, scene)
@@ -127,8 +142,8 @@ import {
     Materialplano.alpha = 1; // Establecer el nivel de transparencia (1 significa completamente opaco)
 
     // Configurar la escala de la textura
-    Materialplano.diffuseTexture.uScale = 1; // Escala horizontal
-    Materialplano.diffuseTexture.vScale = 2; // Escala vertical
+    Materialplano.diffuseTexture.uScale = 0.8; // Escala horizontal
+    Materialplano.diffuseTexture.vScale = 1; // Escala vertical
 
     // Asignar el material al box
     plano.material = Materialplano;
@@ -192,7 +207,7 @@ import {
   if (event.code === 'Space' && !isJumping) {
     isJumping = true; // Evitar múltiples saltos simultáneos
     const jumpHeight = 6; // Altura del salto
-    const duration = 1500; // Duración en milisegundos
+    const duration = 2500; // Duración en milisegundos
 
     // Posición inicial y final del salto
     const startY = plano.position.y;
