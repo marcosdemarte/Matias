@@ -11,9 +11,12 @@ import {
     SceneOptions,
     Vector3,
     StandardMaterial,
-    Texture
+    Texture,
+    
   } from '@babylonjs/core'
   import { FC, useEffect, useRef } from 'react'
+  import "@babylonjs/gui";
+import { AdvancedDynamicTexture, TextBlock } from '@babylonjs/gui';
 
   
   type OnSceneReadyHandler = (scene: Scene) => void
@@ -111,17 +114,27 @@ import {
 
     // Crear un plano para mostrar el texto
     const barraSuperior = MeshBuilder.CreatePlane("barraSuperior", 
-    { width: 16, height: 2 }, scene);
-    barraSuperior.position = new Vector3(8, 14, 0);
+    { width: 30, height: 20 }, scene);
+    barraSuperior.position = new Vector3(10, 13, 0);
 
-    // Crear una textura dinámica para el texto
-    // const advancedTexture = AdvancedDynamicTexture.CreateForMesh(barraSuperior);
-    // const textBlock = new TextBlock();
-    // textBlock.text = "¡Hola, Babylon.js!";
-    // textBlock.color = "white";
-    // textBlock.fontSize = 24;
+    const advancedTexture = AdvancedDynamicTexture.CreateForMesh(barraSuperior);
+    const textBlock = new TextBlock();
+    //textBlock.text = "Puntos: 0";
 
-    // advancedTexture.addControl(textBlock);
+setInterval(() => {
+ textBlock.text = `Record: ${record}  Puntos: ${puntos}`;
+}, 1000);
+
+   
+    textBlock.color = "white";
+    textBlock.fontSize = 40;
+ advancedTexture.addControl(textBlock);
+
+
+
+
+
+
 
       //CREAR cartel
     cartelGameOver = MeshBuilder.CreatePlane('gameOver', { size:10 }, scene)
@@ -253,6 +266,38 @@ import {
     colisionesHabilitadas = true; // Habilitar las colisiones después de 100 milisegundos
 }, 100); // Ajusta el tiempo según sea necesario
 
+
+
+let puntos = 0;
+//let record = 0;
+
+
+
+/*
+let SumaPuntos = setInterval(() => {
+    puntos++;
+    if (puntos>=record){
+      record = puntos;
+    }
+    console.log(puntos)
+}, 1000);
+
+*/
+
+
+// Recuperar el récord guardado (si existe)
+let record = localStorage.getItem("record") ? parseInt(localStorage.getItem("record")) : 0;
+
+let SumaPuntos = setInterval(() => {
+    puntos++;
+    if (puntos >= record) {
+        record = puntos;
+        localStorage.setItem("record", record); // Guardar el nuevo récord en localStorage
+    }
+    console.log(`Puntos: ${puntos}, Récord: ${record}`);
+}, 1000);
+
+
   const onRender: OnRenderHandler = (scene) => {
 
 
@@ -279,6 +324,12 @@ import {
       if (colisionesHabilitadas && plano.intersectsMesh(cactus, false)) {
 
        gameOver = true;
+
+
+
+
+  clearInterval(SumaPuntos);
+
 
         
           console.log('Game Over!!!');
