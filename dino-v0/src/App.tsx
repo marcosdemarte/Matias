@@ -13,12 +13,7 @@ import {
 } from "@babylonjs/core";
 import { FC, useEffect, useRef } from "react";
 import "@babylonjs/gui";
-import {
-  AdvancedDynamicTexture,
-  TextBlock,
-  Button,
-  Control,
-} from "@babylonjs/gui";
+import { AdvancedDynamicTexture, TextBlock, Button } from "@babylonjs/gui";
 
 type OnSceneReadyHandler = (scene: Scene) => void;
 
@@ -101,8 +96,8 @@ let plano: Mesh;
 let cactus: Mesh;
 let cartelGameOver: Mesh;
 //let boton:Mesh
-let boton;
-let button;
+let boton: any;
+let button: any;
 
 const onSceneReady: OnSceneReadyHandler = (scene) => {
   // This creates and positions a free camera (non-mesh)
@@ -279,8 +274,8 @@ button.onPointerUpObservable.add(() => {
   window.addEventListener("keydown", (event) => {
     if (event.code === "Space" && !isJumping) {
       isJumping = true; // Evitar múltiples saltos simultáneos
-      const jumpHeight = 6; // Altura del salto
-      const duration = 2500; // Duración en milisegundos
+      const jumpHeight = 3; // Altura del salto
+      const duration = 1250; // Duración en milisegundos
 
       // Posición inicial y final del salto
       const startY = plano.position.y;
@@ -366,7 +361,7 @@ SumaPuntos();
 //detenerSumaPuntos();
 
 const onRender: OnRenderHandler = (scene) => {
-  console.log("aaa" + gameOver);
+  //console.log("aaa" + gameOver);
   if (!gameOver) {
     cartelGameOver.isVisible = false;
     button.isVisible = false;
