@@ -144,7 +144,6 @@ const onSceneReady: OnSceneReadyHandler = (scene) => {
   advancedTexture.addControl(textBlock);
 
   //crear boton
-
   boton = AdvancedDynamicTexture.CreateFullscreenUI("UI");
   button = Button.CreateSimpleButton("btn", "Reiniciar");
   button.width = "150px";
@@ -152,59 +151,98 @@ const onSceneReady: OnSceneReadyHandler = (scene) => {
   button.color = "white";
   button.background = "blue";
 
-  /*
-button.onPointerUpObservable.add(() => {
+  let colisionesHabilitadas = true;
 
-    console.log("¡Botón presionado!");
-    //LOGICA DE RESTART JUEGO. SE REINICIE.
-});
-*/
-
-  button.onPointerUpObservable.add(() => {
-    console.log("¡Botón presionado! Reiniciando el juego...");
-
-    // Restaurar posiciones iniciales
-
-    ValoresIniciales();
-
-    // Reiniciar variables del juego
-
+  async function reiniciar() {
     gameOver = false;
-    delayColision();
+    eliminarTodosLosObjetos();
+    ValoresIniciales();
+    console.log("gameOver1: ", gameOver);
+    colisionesHabilitadas = false; // Desactivar colisiones temporalmente
+    await new Promise((resolve) => setTimeout(resolve, 3000)); // Esperar antes de reactivar colisiones
+    colisionesHabilitadas = true; // Reactivar colisiones
     SumaPuntos();
-
-    //console.log("gameOver")
-    //console.log(gameOver)
+    createRandomObject();
     puntos = 0;
+  }
 
-    /*
-    // Reactivar el contador de puntos
-    clearInterval(SumaPuntos);
-    SumaPuntos = setInterval(() => {
-        puntos++;
-        if (puntos >= record) {
-            record = puntos;
-            localStorage.setItem("record", record);
-        }
-        console.log(`Puntos: ${puntos}, Récord: ${record}`);
-    }, 1000);
-*/
-    /*
-    // Ocultar mensaje de Game Over y botón
-    cartelGameOver.isVisible = false;
-    button.isVisible = false;
-    */
+  button.onPointerUpObservable.add(async () => {
+    await reiniciar();
   });
 
   boton.addControl(button);
 
-  //button.isVisible = false;
+  let speed = 0.1;
+  let timeoutId;
+  let speedIntervalId;
+
+  function createRandomObject() {
+    if (gameOver) return; // No crear objetos si el juego terminó
+
+    const box = MeshBuilder.CreateBox("box", {}, scene);
+    box.position.set(20, 0.5, 0);
+    box.name = "box_" + Math.random(); // Asignar un nombre único
+    let direction = -1;
+
+    setTimeout(() => {
+      const observer = scene.onBeforeRenderObservable.add(() => {
+        if (gameOver) return; // Detener movimiento si el juego terminó
+
+        box.position.x += direction * speed;
+
+        if (colisionesHabilitadas && plano.intersectsMesh(box, false)) {
+          console.log("¡Game Over! Colisión detectada con:", box.name); // Muest
+          gameOver = true;
+          console.log("gameOver2:", gameOver);
+          speed = 0;
+          clearTimeout(timeoutId);
+          clearInterval(speedIntervalId);
+        }
+        if (box.position.x <= -20) {
+          console.log(`Objeto fuera de límites eliminado: ${box.name}`);
+          box.dispose();
+          scene.onBeforeRenderObservable.remove(observer);
+        }
+      });
+    }, 500); // Reducir el tiempo de espera para evitar colisiones inmediatas
+
+    const randomTime = Math.random() * (4000 - 1000) + 1000;
+    timeoutId = setTimeout(createRandomObject, randomTime);
+  }
+  // Iniciar la primera creación de objetos
+  createRandomObject();
+
+  // Incrementar velocidad cada 3 segundos
+  speedIntervalId = setInterval(() => {
+    if (!gameOver) {
+      speed += 0.01;
+      console.log(`Velocidad actual: ${speed}`);
+    }
+  }, 600);
+
+  function eliminarTodosLosObjetos() {
+    // Filtrar los objetos que comienzan con "box_"
+    const objetosAEliminar = scene.meshes.filter((mesh) =>
+      mesh.name.startsWith("box_")
+    );
+
+    objetosAEliminar.forEach((mesh) => {
+      console.log(`Eliminando objeto: ${mesh.name}`);
+      mesh.dispose(); // Eliminar el objeto visualmente
+    });
+
+    // Remover los objetos de la lista de meshes
+    scene.meshes = scene.meshes.filter((mesh) => !mesh.name.startsWith("box_"));
+
+    // Limpiar cualquier observable anterior para evitar detecciones de colisión falsas
+    scene.onBeforeRenderObservable.clear();
+    console.log(
+      "Todos los objetos 'box_' han sido eliminados y los observables reseteados."
+    );
+  }
 
   //CREAR cartel
   cartelGameOver = MeshBuilder.CreatePlane("gameOver", { size: 10 }, scene);
-
-  //CREAR plano que sea kaktus
-  cactus = MeshBuilder.CreateBox("cactus", { size: 1 }, scene);
 
   //TEXTURA
   // Crear y configurar el material con una textura PNG
@@ -217,7 +255,7 @@ button.onPointerUpObservable.add(() => {
   //transparencia
   // Habilitar transparencia
   Materialplano.diffuseTexture.hasAlpha = true; // Indicar que la textura tiene un canal alfa
-  Materialplano.alpha = 1; // Establecer el nivel de transparencia (1 significa completamente opaco)
+  Materialplano.alpha = 0.8; // Establecer el nivel de transparencia (1 significa completamente opaco)
 
   // Configurar la escala de la textura
   Materialplano.diffuseTexture.uScale = 0.8; // Escala horizontal
@@ -227,22 +265,14 @@ button.onPointerUpObservable.add(() => {
   plano.material = Materialplano;
 
   // Move the box upward 1/2 its height
-  plano.position.x = 1;
-  plano.position.y = 1;
+  plano.position.x = -10;
+  plano.position.y = plano.getBoundingInfo().boundingBox.extendSize.y;
   ValoresIniciales();
-  cactus.position.y = 0.5;
 
   function ValoresIniciales() {
-    cactus.position.x = 20;
     direction = 1; // Restablecer dirección del movimiento
+    speed = 0.1; // Velocidad inicial
   }
-
-  /*
-  if (plano.intersectsMesh(cactus, false)) {
-    console.log("Colisión inicial detectada: ajustando posiciones.");
-    cactus.position.x += 5; // Mover el cactus para evitar colisión
-  }
-*/
 
   //TEXTURA
   // Crear y configurar el material con una textura PNG
@@ -274,8 +304,8 @@ button.onPointerUpObservable.add(() => {
   window.addEventListener("keydown", (event) => {
     if (event.code === "Space" && !isJumping) {
       isJumping = true; // Evitar múltiples saltos simultáneos
-      const jumpHeight = 3; // Altura del salto
-      const duration = 1250; // Duración en milisegundos
+      const jumpHeight = 4; // Altura del salto
+      const duration = 1000; // Duración en milisegundos
 
       // Posición inicial y final del salto
       const startY = plano.position.y;
@@ -301,6 +331,13 @@ button.onPointerUpObservable.add(() => {
       }, 16); // Aproximadamente 60 FPS
     }
   });
+
+  window.addEventListener("keydown", async (event) => {
+    if (event.code === "Enter" && !isJumping) {
+      console.log("reiniciar");
+      await reiniciar(); // Llamar a la función de reinicio
+    }
+  });
 };
 
 /**
@@ -309,27 +346,6 @@ button.onPointerUpObservable.add(() => {
 
 let direction = 1; // Dirección inicial del movimiento: 1 significa hacia la derecha
 let gameOver = false;
-let colisionesHabilitadas = false; // Inicialmente, las colisiones están deshabilitadas
-
-function delayColision() {
-  setTimeout(() => {
-    colisionesHabilitadas = true; // Habilitar las colisiones después del tiempo especificado
-  }, 100);
-}
-
-// Llamada a la función con 100 ms de retraso
-delayColision();
-
-/*
-let SumaPuntos = setInterval(() => {
-    puntos++;
-    if (puntos>=record){
-      record = puntos;
-    }
-    console.log(puntos)
-}, 1000);
-
-*/
 
 // Recuperar el récord guardado (si existe)
 let record = localStorage.getItem("record")
@@ -365,36 +381,32 @@ const onRender: OnRenderHandler = (scene) => {
   if (!gameOver) {
     cartelGameOver.isVisible = false;
     button.isVisible = false;
-
     //console.log("gameover false!!!")
   } else {
     cartelGameOver.isVisible = true;
     button.isVisible = true;
-    colisionesHabilitadas = false;
     detenerSumaPuntos();
     direction = 0;
   }
 
+  /*
   if (cactus !== undefined) {
     const speed = 0.1; // Velocidad del movimiento
     cactus.position.x += direction * speed;
 
     // Cambiar la dirección al alcanzar los límites
-    if (cactus.position.x >= 10) {
-      direction = -1; // Cambiar hacia la izquierda
-    } else if (cactus.position.x <= -15) {
-      direction = 1; // Cambiar hacia la derecha
-    }
-  }
+    //if (cactus.position.x >= 10) {
+    direction = -1; // Cambiar hacia la izquierda
+    //} else if (cactus.position.x <= -15) {
+    //direction = 1; // Cambiar hacia la derecha
+    //}
+  }*/
 
   /*
          // Hacer el mesh (el plano) invisible
          cartelGameOver.isVisible = false;
 */
   // Detectar colisión entre el plano y el cactus
-  if (colisionesHabilitadas && plano.intersectsMesh(cactus, false)) {
-    gameOver = true;
-  }
 };
 
 const App: FC = () => (
