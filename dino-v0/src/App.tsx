@@ -107,17 +107,18 @@ const onSceneReady: OnSceneReadyHandler = (scene) => {
   function ajustarCamaraSegunDispositivo(camera) {
     if (window.innerWidth <= 1000) {
       // Si el ancho es menor a 768px, asumimos que es móvil
-      camera.position.set(-5, 5, -20); // Centrar en X=0, Y=-152
+      camera.position.set(-30, 12, -15); // x horizontal, y vertical ,z profundidad
+      // This targets the camera to scene origin
+      camera.setTarget(new Vector3(-3, 0, 0));
     } else {
       camera.position.set(0, 5, -20); // Posición normal en escritorio
+      // This targets the camera to scene origin
+      camera.setTarget(new Vector3(0, 6, 0));
     }
   }
 
   // This creates and positions a free camera (non-mesh)
   var camera = new FreeCamera("camara2d", new Vector3(0, 5, -20), scene);
-
-  // This targets the camera to scene origin
-  camera.setTarget(new Vector3(0, 6, 0));
 
   // Ajustar la cámara al iniciar
   ajustarCamaraSegunDispositivo(camera);
@@ -315,35 +316,47 @@ const onSceneReady: OnSceneReadyHandler = (scene) => {
 
   let isJumping = false; // Bandera para evitar múltiples saltos
 
+  function salto() {
+    isJumping = true; // Evitar múltiples saltos simultáneos
+    const jumpHeight = 4; // Altura del salto
+    const duration = 1000; // Duración en milisegundos
+
+    // Posición inicial y final del salto
+    const startY = plano.position.y;
+    const targetY = startY + jumpHeight;
+
+    // Subir y bajar el plano animando únicamente el eje Y
+    const startTime = performance.now();
+    const animationInterval = setInterval(() => {
+      const elapsed = performance.now() - startTime;
+      if (elapsed <= duration / 2) {
+        // Fase ascendente
+        plano.position.y = startY + (elapsed / (duration / 2)) * jumpHeight;
+      } else if (elapsed <= duration) {
+        // Fase descendente
+        plano.position.y =
+          targetY - ((elapsed - duration / 2) / (duration / 2)) * jumpHeight;
+      } else {
+        // Finaliza el salto
+        plano.position.y = startY;
+        clearInterval(animationInterval);
+        isJumping = false; // Permitir otro salto
+      }
+    }, 16); // Aproximadamente 60 FPS
+  }
+
+  window.addEventListener("pointerdown", () => {
+    if (!isJumping) {
+      console.log("¡Salto activado desde celular o mouse!");
+      // Aquí va tu lógica de salto
+      salto();
+    }
+  });
+
   // Evento para hacer que el plano salte hacia arriba
   window.addEventListener("keydown", (event) => {
     if (event.code === "Space" && !isJumping) {
-      isJumping = true; // Evitar múltiples saltos simultáneos
-      const jumpHeight = 4; // Altura del salto
-      const duration = 1000; // Duración en milisegundos
-
-      // Posición inicial y final del salto
-      const startY = plano.position.y;
-      const targetY = startY + jumpHeight;
-
-      // Subir y bajar el plano animando únicamente el eje Y
-      const startTime = performance.now();
-      const animationInterval = setInterval(() => {
-        const elapsed = performance.now() - startTime;
-        if (elapsed <= duration / 2) {
-          // Fase ascendente
-          plano.position.y = startY + (elapsed / (duration / 2)) * jumpHeight;
-        } else if (elapsed <= duration) {
-          // Fase descendente
-          plano.position.y =
-            targetY - ((elapsed - duration / 2) / (duration / 2)) * jumpHeight;
-        } else {
-          // Finaliza el salto
-          plano.position.y = startY;
-          clearInterval(animationInterval);
-          isJumping = false; // Permitir otro salto
-        }
-      }, 16); // Aproximadamente 60 FPS
+      salto();
     }
   });
 
