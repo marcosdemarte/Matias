@@ -73,6 +73,10 @@ const SceneComponent: FC<SceneComponentProps> = (props) => {
       window.addEventListener("resize", resize);
     }
 
+    window.addEventListener("resize", () => {
+      engine.resize();
+    });
+
     return () => {
       scene.getEngine().dispose();
 
@@ -100,20 +104,31 @@ let boton: any;
 let button: any;
 
 const onSceneReady: OnSceneReadyHandler = (scene) => {
+  function ajustarCamaraSegunDispositivo(camera) {
+    if (window.innerWidth <= 1000) {
+      // Si el ancho es menor a 768px, asumimos que es móvil
+      camera.position.set(-5, 5, -20); // Centrar en X=0, Y=-152
+    } else {
+      camera.position.set(0, 5, -20); // Posición normal en escritorio
+    }
+  }
+
   // This creates and positions a free camera (non-mesh)
   var camera = new FreeCamera("camara2d", new Vector3(0, 5, -20), scene);
 
   // This targets the camera to scene origin
   camera.setTarget(new Vector3(0, 6, 0));
 
-  // This attaches the camera to the canvas
+  // Ajustar la cámara al iniciar
+  ajustarCamaraSegunDispositivo(camera);
 
-  /*
-     const canvas = scene.getEngine().getRenderingCanvas()
-    camera.attachControl(canvas, false)
-    */
+  // Ajustar la cámara cuando la ventana cambie de tamaño
+  window.addEventListener("resize", () => {
+    ajustarCamaraSegunDispositivo(camera);
+  });
 
-  // This creates a light, aiming 0,1,0 - to the sky (non-mesh)
+  //camera.inputs.removeByType("FreeCameraMouseWheelInput"); // Desactivar zoom con el scroll
+
   var light = new HemisphericLight("light", new Vector3(0, 1, 0), scene);
 
   // Default intensity is 1. Let's dim the light a small amount
@@ -410,7 +425,7 @@ const onRender: OnRenderHandler = (scene) => {
 };
 
 const App: FC = () => (
-  <div style={{ flex: 1, display: "flex", height: "600px" }}>
+  <div style={{ flex: 1, display: "flex", height: "100vh" }}>
     <SceneComponent
       canvasId="babylon-canvas"
       antialias
