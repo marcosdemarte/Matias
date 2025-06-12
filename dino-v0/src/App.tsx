@@ -255,7 +255,7 @@ const onSceneReady: OnSceneReadyHandler = (scene) => {
   //transparencia
   // Habilitar transparencia
   Materialplano.diffuseTexture.hasAlpha = true; // Indicar que la textura tiene un canal alfa
-  Materialplano.alpha = 0.8; // Establecer el nivel de transparencia (1 significa completamente opaco)
+  Materialplano.alpha = 0.5; // Establecer el nivel de transparencia (1 significa completamente opaco)
 
   // Configurar la escala de la textura
   Materialplano.diffuseTexture.uScale = 0.8; // Escala horizontal
