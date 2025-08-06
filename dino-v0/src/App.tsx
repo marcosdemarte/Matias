@@ -137,7 +137,7 @@ const onSceneReady: OnSceneReadyHandler = (scene) => {
 
   //CREAR BOX
   //plano = MeshBuilder.CreatePlane('plano', { size: 2 }, scene)
-  plano = MeshBuilder.CreatePlane("plano", { width: 2, height: 2.5 }, scene);
+  plano = MeshBuilder.CreatePlane("plano", { width: 10, height: 10 }, scene);
 
   // Crear un plano para mostrar el texto
   const barraSuperior = MeshBuilder.CreatePlane(
@@ -306,25 +306,37 @@ const onSceneReady: OnSceneReadyHandler = (scene) => {
   // Crear y configurar el material con una textura PNG
   const Materialplano = new StandardMaterial("Materialplano", scene);
   Materialplano.diffuseTexture = new Texture(
-    "./assets/images/personaje-quieto.png",
+     //"./assets/images/personaje-quieto.png",
+   //  "./assets/nuevasImagenes/dinoQuieto1.png",
+
+    "./assets/images/test.png",
     scene
   );
 
+  
   //transparencia
   // Habilitar transparencia
+
+
+ 
   Materialplano.diffuseTexture.hasAlpha = true; // Indicar que la textura tiene un canal alfa
-  Materialplano.alpha = 0.5; // Establecer el nivel de transparencia (1 significa completamente opaco)
+  Materialplano.alpha = 0.5; // Establecer el nivel de transparencia (1 significa completamente transparente)
+ 
+
 
   // Configurar la escala de la textura
-  Materialplano.diffuseTexture.uScale = 0.8; // Escala horizontal
+  Materialplano.diffuseTexture.uScale = 1; // Escala horizontal
   Materialplano.diffuseTexture.vScale = 1; // Escala vertical
-
+/* */
   // Asignar el material al box
   plano.material = Materialplano;
-
+ 
   // Move the box upward 1/2 its height
   plano.position.x = -10;
   plano.position.y = plano.getBoundingInfo().boundingBox.extendSize.y;
+
+
+
   ValoresIniciales();
 
 
