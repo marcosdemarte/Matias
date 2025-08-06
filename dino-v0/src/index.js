@@ -4,13 +4,26 @@ import "./index.css";
 
 import App from "./App.tsx";
 //import App from "./test1.tsx";
+//import Test2 from "./test2.tsx"
 
 const root = createRoot(document.getElementById("root"));
 root.render(
-  <StrictMode>
+ 
     <App />
-  </StrictMode>
+  
 );
+
+
+/* desactivo
+
+ <StrictMode>
+
+</StrictMode>
+    <App />
+*/
+
+
+
 
 /*
 

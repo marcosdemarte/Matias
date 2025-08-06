@@ -10,9 +10,6 @@ import {
   Vector3,
   StandardMaterial,
   Texture,
-  Skeleton,
-  Matrix,
-  Bone,
 } from "@babylonjs/core";
 import { FC, useEffect, useRef } from "react";
 import "@babylonjs/gui";
@@ -199,6 +196,48 @@ const onSceneReady: OnSceneReadyHandler = (scene) => {
     if (gameOver) return; // No crear objetos si el juego terminó
 
     const box = MeshBuilder.CreateBox("box", {}, scene);
+    const kaktus_chico = MeshBuilder.CreatePlane("kaktus_chico", { width: 2, height: 2.5 }, scene);
+    //kaktus_chico.position.set (0,0,0);
+    kaktus_chico.position.x = 0;
+    kaktus_chico.position.y = plano.getBoundingInfo().boundingBox.extendSize.y;
+
+
+
+
+
+
+//textura de los :D coliciones
+
+
+/////////////////////////////////////////////////////////////////////////////////////
+  //TEXTURA
+  // Crear y configurar el material con una textura PNG
+  const materialKaktusChico = new StandardMaterial("materialKaktusChico", scene);
+  materialKaktusChico.diffuseTexture = new Texture(
+    "./assets/kaktusChico.png",
+    scene
+  );
+
+  //transparencia
+  // Habilitar transparencia
+  materialKaktusChico.diffuseTexture.hasAlpha = true; // Indicar que la textura tiene un canal alfa
+  materialKaktusChico.alpha = 0.5; // Establecer el nivel de transparencia (1 significa completamente opaco)
+
+  // Configurar la escala de la textura
+  materialKaktusChico.diffuseTexture.uScale = 0.8; // Escala horizontal
+  materialKaktusChico.diffuseTexture.vScale = 1; // Escala vertical
+
+  // Asignar el material al box
+  kaktus_chico.material = materialKaktusChico;
+
+////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+
+
+
     box.position.set(20, 0.5, 0);
     box.name = "box_" + Math.random(); // Asignar un nombre único
     let direction = -1;
@@ -287,6 +326,14 @@ const onSceneReady: OnSceneReadyHandler = (scene) => {
   plano.position.x = -10;
   plano.position.y = plano.getBoundingInfo().boundingBox.extendSize.y;
   ValoresIniciales();
+
+
+
+
+
+
+
+
 
   function ValoresIniciales() {
     direction = 1; // Restablecer dirección del movimiento
