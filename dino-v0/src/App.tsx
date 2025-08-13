@@ -100,6 +100,7 @@ let plano: Mesh;
 let cactus: Mesh;
 let cartelGameOver: Mesh;
 //let boton:Mesh
+let fondo: Mesh;
 let boton: any;
 let button: any;
 
@@ -137,7 +138,47 @@ const onSceneReady: OnSceneReadyHandler = (scene) => {
 
   //CREAR BOX
   //plano = MeshBuilder.CreatePlane('plano', { size: 2 }, scene)
-  plano = MeshBuilder.CreatePlane("plano", { width: 10, height: 10 }, scene);
+  plano = MeshBuilder.CreatePlane("plano", { width: 4.9, height: 2.5 }, scene);
+
+  //CREAR fondo
+  fondo = MeshBuilder.CreatePlane("fondo", { width: 60, height: 30  }, scene);
+
+   fondo.position.set (0,10,10);
+
+
+
+
+
+//TEXTURA
+    // Crear y configurar el material con una textura PNG
+    const materialfondo = new StandardMaterial(
+      "materialfondo",
+      scene
+    );
+    materialfondo.diffuseTexture = new Texture(
+      "./assets/images/fondo.jpg",
+      scene
+    );
+
+  
+    // Configurar la escala de la textura
+    materialfondo.diffuseTexture.uScale = 0.8; // Escala horizontal
+    materialfondo.diffuseTexture.vScale = 1; // Escala vertical
+
+    // Asignar el material al box
+    fondo.material = materialfondo;
+
+
+
+
+
+
+
+
+
+
+
+
 
   // Crear un plano para mostrar el texto
   const barraSuperior = MeshBuilder.CreatePlane(
@@ -195,7 +236,10 @@ const onSceneReady: OnSceneReadyHandler = (scene) => {
   function createRandomObject() {
     if (gameOver) return; // No crear objetos si el juego terminó
 
-    const box = MeshBuilder.CreateBox("box", {}, scene);
+    //const box = MeshBuilder.CreateBox("box", {}, scene);
+ const box = MeshBuilder.CreatePlane("plano", { width: 1.9, height: 1.8 }, scene);
+
+
     const kaktus_chico = MeshBuilder.CreatePlane(
       "kaktus_chico",
       { width: 2, height: 2.5 },
@@ -215,7 +259,7 @@ const onSceneReady: OnSceneReadyHandler = (scene) => {
       scene
     );
     materialKaktusChico.diffuseTexture = new Texture(
-      "./assets/kaktusChico.png",
+      "./assets/Cactus_chico.png",
       scene
     );
 
@@ -233,9 +277,39 @@ const onSceneReady: OnSceneReadyHandler = (scene) => {
 
     ////////////////////////////////////////////////////////////////////////////////
 
-    box.position.set(20, 0.5, 0);
+   // box.position.set(20, 0.5, 0);
+
+    box.position.x = 20
+    box.position.y = box.getBoundingInfo().boundingBox.extendSize.y;
+
     box.name = "box_" + Math.random(); // Asignar un nombre único
     let direction = -1;
+
+
+
+
+  const cactusChico = new StandardMaterial("cactusChico", scene);
+  cactusChico.diffuseTexture = new Texture(
+      "./assets/images/Cactus_grande.png",
+    scene
+  );
+
+
+
+  
+  cactusChico.diffuseTexture.hasAlpha = true; // Indicar que la textura tiene un canal alfa
+  cactusChico.alpha = 1; // Establecer el nivel de transparencia (1 significa completamente transparente)
+
+  // Configurar la escala de la textura
+//
+  cactusChico.diffuseTexture.uScale = 0.99; // Escala horizontal
+  cactusChico.diffuseTexture.vScale = 0.99; // Escala vertical
+
+
+//
+  /* */
+  // Asignar el material al box
+  box.material = cactusChico;
 
     setTimeout(() => {
       const observer = scene.onBeforeRenderObservable.add(() => {
@@ -304,21 +378,23 @@ const onSceneReady: OnSceneReadyHandler = (scene) => {
     //"./assets/images/personaje-quieto.png",
     //  "./assets/nuevasImagenes/dinoQuieto1.png",
 
-    "./assets/images/11.png",
+    "./assets/images/Dino_run_1.png",
     scene
   );
 
   //transparencia
   // Habilitar transparencia
-  /*
+
   Materialplano.diffuseTexture.hasAlpha = true; // Indicar que la textura tiene un canal alfa
-  Materialplano.alpha = 0.5; // Establecer el nivel de transparencia (1 significa completamente transparente)
-*/
+  Materialplano.alpha = 1; // Establecer el nivel de transparencia (1 significa completamente transparente)
+
   // Configurar la escala de la textura
-  /*
-  Materialplano.diffuseTexture.uScale = 10; // Escala horizontal
-  Materialplano.diffuseTexture.vScale = 10; // Escala vertical
-  */
+//
+  Materialplano.diffuseTexture.uScale = 0.99; // Escala horizontal
+  Materialplano.diffuseTexture.vScale = 0.99; // Escala vertical
+
+
+//
   /* */
   // Asignar el material al box
   plano.material = Materialplano;
