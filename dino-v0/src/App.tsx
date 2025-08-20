@@ -108,9 +108,9 @@ const onSceneReady: OnSceneReadyHandler = (scene) => {
   function ajustarCamaraSegunDispositivo(camera) {
     if (window.innerWidth <= 1000) {
       // Si el ancho es menor a 768px, asumimos que es móvil
-      camera.position.set(-30, 12, -15); // x horizontal, y vertical ,z profundidad
+      camera.position.set(0, 5, -20); // x horizontal, y vertical ,z profundidad
       // This targets the camera to scene origin
-      camera.setTarget(new Vector3(-3, 0, 0));
+      camera.setTarget(new Vector3(0, 6, 0));
     } else {
       camera.position.set(0, 5, -20); // Posición normal en escritorio
       // This targets the camera to scene origin
@@ -141,44 +141,24 @@ const onSceneReady: OnSceneReadyHandler = (scene) => {
   plano = MeshBuilder.CreatePlane("plano", { width: 4.9, height: 2.5 }, scene);
 
   //CREAR fondo
-  fondo = MeshBuilder.CreatePlane("fondo", { width: 55, height: 50  }, scene);
+  fondo = MeshBuilder.CreatePlane("fondo", { width: 55, height: 50 }, scene);
 
-   fondo.position.set (0,10,10);
+  fondo.position.set(0, 10, 10);
 
+  //TEXTURA
+  // Crear y configurar el material con una textura PNG
+  const materialfondo = new StandardMaterial("materialfondo", scene);
+  materialfondo.diffuseTexture = new Texture(
+    "./assets/images/fondo.jpg",
+    scene
+  );
 
+  // Configurar la escala de la textura
+  materialfondo.diffuseTexture.uScale = 0.8; // Escala horizontal
+  materialfondo.diffuseTexture.vScale = 1; // Escala vertical
 
-
-
-//TEXTURA
-    // Crear y configurar el material con una textura PNG
-    const materialfondo = new StandardMaterial(
-      "materialfondo",
-      scene
-    );
-    materialfondo.diffuseTexture = new Texture(
-      "./assets/images/fondo.jpg",
-      scene
-    );
-
-  
-    // Configurar la escala de la textura
-    materialfondo.diffuseTexture.uScale = 0.8; // Escala horizontal
-    materialfondo.diffuseTexture.vScale = 1; // Escala vertical
-
-    // Asignar el material al box
-    fondo.material = materialfondo;
-
-
-
-
-
-
-
-
-
-
-
-
+  // Asignar el material al box
+  fondo.material = materialfondo;
 
   // Crear un plano para mostrar el texto
   const barraSuperior = MeshBuilder.CreatePlane(
@@ -237,8 +217,11 @@ const onSceneReady: OnSceneReadyHandler = (scene) => {
     if (gameOver) return; // No crear objetos si el juego terminó
 
     //const box = MeshBuilder.CreateBox("box", {}, scene);
- const box = MeshBuilder.CreatePlane("plano", { width: 1.9, height: 1.8 }, scene);
-
+    const box = MeshBuilder.CreatePlane(
+      "plano",
+      { width: 1.9, height: 1.8 },
+      scene
+    );
 
     const kaktus_chico = MeshBuilder.CreatePlane(
       "kaktus_chico",
@@ -266,7 +249,7 @@ const onSceneReady: OnSceneReadyHandler = (scene) => {
     //transparencia
     // Habilitar transparencia
     materialKaktusChico.diffuseTexture.hasAlpha = true; // Indicar que la textura tiene un canal alfa
-    materialKaktusChico.alpha = 0.5; // Establecer el nivel de transparencia (1 significa completamente opaco)
+    materialKaktusChico.alpha = 0; // Establecer el nivel de transparencia (1 significa completamente opaco)
 
     // Configurar la escala de la textura
     materialKaktusChico.diffuseTexture.uScale = 0.8; // Escala horizontal
@@ -277,39 +260,32 @@ const onSceneReady: OnSceneReadyHandler = (scene) => {
 
     ////////////////////////////////////////////////////////////////////////////////
 
-   // box.position.set(20, 0.5, 0);
+    // box.position.set(20, 0.5, 0);
 
-    box.position.x = 20
+    box.position.x = 20;
     box.position.y = box.getBoundingInfo().boundingBox.extendSize.y;
 
     box.name = "box_" + Math.random(); // Asignar un nombre único
     let direction = -1;
 
-
-
-
-  const cactusChico = new StandardMaterial("cactusChico", scene);
-  cactusChico.diffuseTexture = new Texture(
+    const cactusChico = new StandardMaterial("cactusChico", scene);
+    cactusChico.diffuseTexture = new Texture(
       "./assets/images/Cactus_grande.png",
-    scene
-  );
+      scene
+    );
 
+    cactusChico.diffuseTexture.hasAlpha = true; // Indicar que la textura tiene un canal alfa
+    cactusChico.alpha = 1; // Establecer el nivel de transparencia (1 significa completamente transparente)
 
+    // Configurar la escala de la textura
+    //
+    cactusChico.diffuseTexture.uScale = 0.99; // Escala horizontal
+    cactusChico.diffuseTexture.vScale = 0.99; // Escala vertical
 
-  
-  cactusChico.diffuseTexture.hasAlpha = true; // Indicar que la textura tiene un canal alfa
-  cactusChico.alpha = 1; // Establecer el nivel de transparencia (1 significa completamente transparente)
-
-  // Configurar la escala de la textura
-//
-  cactusChico.diffuseTexture.uScale = 0.99; // Escala horizontal
-  cactusChico.diffuseTexture.vScale = 0.99; // Escala vertical
-
-
-//
-  /* */
-  // Asignar el material al box
-  box.material = cactusChico;
+    //
+    /* */
+    // Asignar el material al box
+    box.material = cactusChico;
 
     setTimeout(() => {
       const observer = scene.onBeforeRenderObservable.add(() => {
@@ -369,7 +345,11 @@ const onSceneReady: OnSceneReadyHandler = (scene) => {
   }
 
   //CREAR cartel
-  cartelGameOver = MeshBuilder.CreatePlane("gameOver",  { width: 20, height: 8.5 }, scene);
+  cartelGameOver = MeshBuilder.CreatePlane(
+    "gameOver",
+    { width: 20, height: 8.5 },
+    scene
+  );
 
   //TEXTURA
   // Crear y configurar el material con una textura PNG
@@ -389,12 +369,11 @@ const onSceneReady: OnSceneReadyHandler = (scene) => {
   Materialplano.alpha = 1; // Establecer el nivel de transparencia (1 significa completamente transparente)
 
   // Configurar la escala de la textura
-//
+  //
   Materialplano.diffuseTexture.uScale = 0.99; // Escala horizontal
   Materialplano.diffuseTexture.vScale = 0.99; // Escala vertical
 
-
-//
+  //
   /* */
   // Asignar el material al box
   plano.material = Materialplano;
