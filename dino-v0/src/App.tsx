@@ -141,7 +141,7 @@ const onSceneReady: OnSceneReadyHandler = (scene) => {
   plano = MeshBuilder.CreatePlane("plano", { width: 4.9, height: 2.5 }, scene);
 
   //CREAR fondo
-  fondo = MeshBuilder.CreatePlane("fondo", { width: 60, height: 30  }, scene);
+  fondo = MeshBuilder.CreatePlane("fondo", { width: 55, height: 50  }, scene);
 
    fondo.position.set (0,10,10);
 
@@ -369,7 +369,7 @@ const onSceneReady: OnSceneReadyHandler = (scene) => {
   }
 
   //CREAR cartel
-  cartelGameOver = MeshBuilder.CreatePlane("gameOver", { size: 10 }, scene);
+  cartelGameOver = MeshBuilder.CreatePlane("gameOver",  { width: 20, height: 8.5 }, scene);
 
   //TEXTURA
   // Crear y configurar el material con una textura PNG
@@ -438,8 +438,8 @@ const onSceneReady: OnSceneReadyHandler = (scene) => {
 
   function salto() {
     isJumping = true; // Evitar múltiples saltos simultáneos
-    const jumpHeight = 4; // Altura del salto
-    const duration = 1000; // Duración en milisegundos
+    const jumpHeight = 5; // Altura del salto
+    const duration = 1500; // Duración en milisegundos
 
     // Posición inicial y final del salto
     const startY = plano.position.y;
