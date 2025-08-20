@@ -13,6 +13,7 @@
     "react-babylonjs": "^3.2.2",
     "react-dom": "^19.0.0",
     "react-scripts": "5.0.1",
+    "vercel": "^46.0.2",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
