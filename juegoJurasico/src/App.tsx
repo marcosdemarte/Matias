@@ -141,9 +141,9 @@ const onSceneReady: OnSceneReadyHandler = (scene) => {
   plano = MeshBuilder.CreatePlane("plano", { width: 4.9, height: 2.5 }, scene);
 
   //CREAR fondo
-  fondo = MeshBuilder.CreatePlane("fondo", { width: 55, height: 50 }, scene);
+  fondo = MeshBuilder.CreatePlane("fondo", { width: 55, height: 30 }, scene);
 
-  fondo.position.set(0, 10, 10);
+  fondo.position.set(0, 4.5, 10);
 
   //TEXTURA
   // Crear y configurar el material con una textura PNG
