@@ -9,7 +9,7 @@ import {
   SceneOptions,
   Vector3,
   StandardMaterial,
-  Texture,
+  Texture
 } from "@babylonjs/core";
 import { FC, useEffect, useRef } from "react";
 import "@babylonjs/gui";
@@ -134,7 +134,7 @@ const onSceneReady: OnSceneReadyHandler = (scene) => {
   var light = new HemisphericLight("light", new Vector3(0, 1, 0), scene);
 
   // Default intensity is 1. Let's dim the light a small amount
-  light.intensity = 0.7;
+  light.intensity = 2;
 
   //CREAR BOX
   //plano = MeshBuilder.CreatePlane('plano', { size: 2 }, scene)
@@ -143,7 +143,7 @@ const onSceneReady: OnSceneReadyHandler = (scene) => {
   //CREAR fondo
   fondo = MeshBuilder.CreatePlane("fondo", { width: 55, height: 30 }, scene);
 
-  fondo.position.set(0, 4.5, 10);
+  fondo.position.set(0, 4.9, 10);
 
   //TEXTURA
   // Crear y configurar el material con una textura PNG
@@ -154,7 +154,7 @@ const onSceneReady: OnSceneReadyHandler = (scene) => {
   );
 
   // Configurar la escala de la textura
-  materialfondo.diffuseTexture.uScale = 0.8; // Escala horizontal
+  materialfondo.diffuseTexture.uScale = 1; // Escala horizontal
   materialfondo.diffuseTexture.vScale = 1; // Escala vertical
 
   // Asignar el material al box
@@ -411,7 +411,7 @@ const onSceneReady: OnSceneReadyHandler = (scene) => {
   cartelGameOver.position.y = 10;
 
   // PISO
-  MeshBuilder.CreateGround("ground", { width: 60, height: 3 }, scene);
+  //MeshBuilder.CreateGround("ground", { width: 60, height: 3 }, scene);
 
   let isJumping = false; // Bandera para evitar múltiples saltos
 
