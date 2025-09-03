@@ -293,7 +293,7 @@ const onSceneReady: OnSceneReadyHandler = (scene) => {
 
         box.position.x += direction * speed;
 
-        if (colisionesHabilitadas && plano.intersectsMesh(box, false)) {
+        if (colisionesHabilitadas && zonaHit.intersectsMesh(box, false)) {//plano
           console.log("¡Game Over! Colisión detectada con:", box.name); // Muest
           gameOver = true;
           console.log("gameOver2:", gameOver);
@@ -347,7 +347,7 @@ const onSceneReady: OnSceneReadyHandler = (scene) => {
   //CREAR cartel
   cartelGameOver = MeshBuilder.CreatePlane(
     "gameOver",
-    { width: 20, height: 8.5 },
+    { width: 10, height: 10 },
     scene
   );
 
@@ -361,6 +361,8 @@ const onSceneReady: OnSceneReadyHandler = (scene) => {
     "./assets/images/Dino_run_1.png",
     scene
   );
+
+
 
   //transparencia
   // Habilitar transparencia
@@ -381,6 +383,18 @@ const onSceneReady: OnSceneReadyHandler = (scene) => {
   // Move the box upward 1/2 its height
   plano.position.x = -10;
   plano.position.y = plano.getBoundingInfo().boundingBox.extendSize.y;
+
+
+
+
+//ZONA HIT
+const zonaHit = MeshBuilder.CreateBox("zonaHit",{width:1.5, height:2.3}, scene)
+//zonaHit.position = plano.position.clone();
+zonaHit.parent = plano;
+zonaHit.position.x = 0.65;
+zonaHit.isVisible = false;
+zonaHit.isPickable = false;
+
 
   ValoresIniciales();
 
