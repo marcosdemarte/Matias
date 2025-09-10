@@ -9,11 +9,13 @@ import {
   SceneOptions,
   Vector3,
   StandardMaterial,
-  Texture
+  Texture,
 } from "@babylonjs/core";
 import { FC, useEffect, useRef } from "react";
 import "@babylonjs/gui";
 import { AdvancedDynamicTexture, TextBlock, Button } from "@babylonjs/gui";
+import { Quaternion } from "@babylonjs/core/Maths/math.vector";
+import { Axis } from "@babylonjs/core/Maths/math.axis";
 
 type OnSceneReadyHandler = (scene: Scene) => void;
 
@@ -108,13 +110,20 @@ const onSceneReady: OnSceneReadyHandler = (scene) => {
   function ajustarCamaraSegunDispositivo(camera) {
     if (window.innerWidth <= 1000) {
       // Si el ancho es menor a 768px, asumimos que es móvil
-      camera.position.set(0, 5, -20); // x horizontal, y vertical ,z profundidad
+      camera.position.set(0, 7, -40); // x horizontal, y vertical ,z profundidad
       // This targets the camera to scene origin
-      camera.setTarget(new Vector3(0, 6, 0));
+      camera.setTarget(new Vector3(0, 7, 0));
+
+      // Rotar la cabeza 90° (roll sobre eje Z)
+      const inclinacionCabeza = Quaternion.RotationAxis(
+        Axis.Z,
+        Math.PI / 2 // 90 grados
+      );
+      camera.rotationQuaternion = inclinacionCabeza;
     } else {
-      camera.position.set(0, 5, -20); // Posición normal en escritorio
+      camera.position.set(0, 7, -20); // Posición normal en escritorio
       // This targets the camera to scene origin
-      camera.setTarget(new Vector3(0, 6, 0));
+      camera.setTarget(new Vector3(0, 7, 0));
     }
   }
 
@@ -141,9 +150,9 @@ const onSceneReady: OnSceneReadyHandler = (scene) => {
   plano = MeshBuilder.CreatePlane("plano", { width: 4.9, height: 2.5 }, scene);
 
   //CREAR fondo
-  fondo = MeshBuilder.CreatePlane("fondo", { width: 55, height: 30 }, scene);
-
-  fondo.position.set(0, 4.9, 10);
+  fondo = MeshBuilder.CreatePlane("fondo", { width: 40, height: 30 }, scene);
+  //horizontal, vertical, profundida
+  fondo.position.set(0, 7, 2);
 
   //TEXTURA
   // Crear y configurar el material con una textura PNG
@@ -293,7 +302,8 @@ const onSceneReady: OnSceneReadyHandler = (scene) => {
 
         box.position.x += direction * speed;
 
-        if (colisionesHabilitadas && zonaHit.intersectsMesh(box, false)) {//plano
+        if (colisionesHabilitadas && zonaHit.intersectsMesh(box, false)) {
+          //plano
           console.log("¡Game Over! Colisión detectada con:", box.name); // Muest
           gameOver = true;
           console.log("gameOver2:", gameOver);
@@ -362,8 +372,6 @@ const onSceneReady: OnSceneReadyHandler = (scene) => {
     scene
   );
 
-
-
   //transparencia
   // Habilitar transparencia
 
@@ -384,17 +392,17 @@ const onSceneReady: OnSceneReadyHandler = (scene) => {
   plano.position.x = -10;
   plano.position.y = plano.getBoundingInfo().boundingBox.extendSize.y;
 
-
-
-
-//ZONA HIT
-const zonaHit = MeshBuilder.CreateBox("zonaHit",{width:1.5, height:2.3}, scene)
-//zonaHit.position = plano.position.clone();
-zonaHit.parent = plano;
-zonaHit.position.x = 0.65;
-zonaHit.isVisible = false;
-zonaHit.isPickable = false;
-
+  //ZONA HIT
+  const zonaHit = MeshBuilder.CreateBox(
+    "zonaHit",
+    { width: 1.5, height: 2.3 },
+    scene
+  );
+  //zonaHit.position = plano.position.clone();
+  zonaHit.parent = plano;
+  zonaHit.position.x = 0.65;
+  zonaHit.isVisible = false;
+  zonaHit.isPickable = false;
 
   ValoresIniciales();
 
