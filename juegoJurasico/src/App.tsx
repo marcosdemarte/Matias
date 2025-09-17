@@ -185,6 +185,33 @@ const onSceneReady: OnSceneReadyHandler = (scene) => {
     textBlock.text = `Record: ${record}  Puntos: ${puntos}`;
   }, 1000);
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
   textBlock.color = "white";
   textBlock.fontSize = 40;
   advancedTexture.addControl(textBlock);
@@ -364,24 +391,78 @@ const onSceneReady: OnSceneReadyHandler = (scene) => {
   //TEXTURA
   // Crear y configurar el material con una textura PNG
   const Materialplano = new StandardMaterial("Materialplano", scene);
-  Materialplano.diffuseTexture = new Texture(
-    //"./assets/images/personaje-quieto.png",
-    //  "./assets/nuevasImagenes/dinoQuieto1.png",
+let contador = 1;
 
-    "./assets/images/Dino_run_1.png",
-    scene
-  );
 
-  //transparencia
-  // Habilitar transparencia
 
-  Materialplano.diffuseTexture.hasAlpha = true; // Indicar que la textura tiene un canal alfa
-  Materialplano.alpha = 1; // Establecer el nivel de transparencia (1 significa completamente transparente)
+    setInterval(() => {
 
-  // Configurar la escala de la textura
-  //
-  Materialplano.diffuseTexture.uScale = 0.99; // Escala horizontal
-  Materialplano.diffuseTexture.vScale = 0.99; // Escala vertical
+if (!gameOver){
+
+  if (contador==1){
+        
+            Materialplano.diffuseTexture = new Texture(
+              //"./assets/images/personaje-quieto.png",
+              //  "./assets/nuevasImagenes/dinoQuieto1.png",
+
+              "./assets/images/Dino_run_1.png",
+              scene
+            );
+
+
+                          //transparencia
+              // Habilitar transparencia
+
+              Materialplano.diffuseTexture.hasAlpha = true; // Indicar que la textura tiene un canal alfa
+              Materialplano.alpha = 1; // Establecer el nivel de transparencia (1 significa completamente transparente)
+
+              // Configurar la escala de la textura
+              //
+              Materialplano.diffuseTexture.uScale = 0.99; // Escala horizontal
+              Materialplano.diffuseTexture.vScale = 0.99; // Escala vertical
+
+
+            contador++;
+
+      }else{
+        contador = 1;
+            Materialplano.diffuseTexture = new Texture(
+              //"./assets/images/personaje-quieto.png",
+              //  "./assets/nuevasImagenes/dinoQuieto1.png",
+
+              "./assets/images/Dino_run_2.png",
+              scene
+            );
+
+              //transparencia
+          // Habilitar transparencia
+
+          Materialplano.diffuseTexture.hasAlpha = true; // Indicar que la textura tiene un canal alfa
+          Materialplano.alpha = 1; // Establecer el nivel de transparencia (1 significa completamente transparente)
+
+          // Configurar la escala de la textura
+          //
+          Materialplano.diffuseTexture.uScale = 0.99; // Escala horizontal
+          Materialplano.diffuseTexture.vScale = 0.99; // Escala vertical
+
+
+      }    
+
+
+
+}
+
+        
+
+
+
+
+          console.log("holis111")
+    }
+
+      ,100);
+
+
 
   //
   /* */
@@ -526,6 +607,7 @@ SumaPuntos();
 //detenerSumaPuntos();
 
 const onRender: OnRenderHandler = (scene) => {
+  console.log("aaaaaaaaaaaaa")
   //console.log("aaa" + gameOver);
   if (!gameOver) {
     cartelGameOver.isVisible = false;
