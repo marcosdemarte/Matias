@@ -1,0 +1,6 @@
+1) illustrator terminar las patas del dino.
+2) pisar las imagenes del juego
+3) subir al repositorio.
+4) marcos: vercel --prod
+5) subir la URL a Powerbit
+6) google analitics (ver cantidad de visitas)
