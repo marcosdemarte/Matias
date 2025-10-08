@@ -1,6 +1,2 @@
-1) illustrator terminar las patas del dino.
-2) pisar las imagenes del juego
-3) subir al repositorio.
-4) marcos: vercel --prod
-5) subir la URL a Powerbit
-6) google analitics (ver cantidad de visitas)
+1) hacer que el dino cuando salte, no mueva las patitas, y se muestre una nueva imagen del salto del dino( que es con las patas enrolladas. )
+2) aumentar el intervalo de los cactus. simple para un nuño de 5 años.

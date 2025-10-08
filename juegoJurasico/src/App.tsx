@@ -185,33 +185,6 @@ const onSceneReady: OnSceneReadyHandler = (scene) => {
     textBlock.text = `Record: ${record}  Puntos: ${puntos}`;
   }, 1000);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-
   textBlock.color = "white";
   textBlock.fontSize = 40;
   advancedTexture.addControl(textBlock);
@@ -346,7 +319,7 @@ const onSceneReady: OnSceneReadyHandler = (scene) => {
       });
     }, 500); // Reducir el tiempo de espera para evitar colisiones inmediatas
 
-    const randomTime = Math.random() * (4000 - 1000) + 1000;
+    const randomTime = Math.random() * (8000 - 4000) + 4000;
     timeoutId = setTimeout(createRandomObject, randomTime);
   }
   // Iniciar la primera creación de objetos
@@ -358,7 +331,7 @@ const onSceneReady: OnSceneReadyHandler = (scene) => {
       speed += 0.01;
       console.log(`Velocidad actual: ${speed}`);
     }
-  }, 600);
+  }, 3000);
 
   function eliminarTodosLosObjetos() {
     // Filtrar los objetos que comienzan con "box_"
@@ -391,16 +364,29 @@ const onSceneReady: OnSceneReadyHandler = (scene) => {
   //TEXTURA
   // Crear y configurar el material con una textura PNG
   const Materialplano = new StandardMaterial("Materialplano", scene);
-let contador = 1;
+  let contador = 1;
 
+  setInterval(
+    () => {
+      if (!gameOver) {
+        //       ;_; logicas de el salto extraa
 
+        if (isJumping == true) {
+          //alert("salta")
+          Materialplano.diffuseTexture = new Texture(
+            //"./assets/images/personaje-quieto.png",
+            //  "./assets/nuevasImagenes/dinoQuieto1.png",
 
-    setInterval(() => {
+            "./assets/images/dino_salta.png",
+            scene
+          );
+          //transparencia
+          // Habilitar transparencia
 
-if (!gameOver){
-
-  if (contador==1){
-        
+          Materialplano.diffuseTexture.hasAlpha = true; // Indicar que la textura tiene un canal alfa
+          Materialplano.alpha = 1; // Establecer el nivel de transparencia (1 significa completamente transparente)
+        } else {
+          if (contador == 1) {
             Materialplano.diffuseTexture = new Texture(
               //"./assets/images/personaje-quieto.png",
               //  "./assets/nuevasImagenes/dinoQuieto1.png",
@@ -409,23 +395,20 @@ if (!gameOver){
               scene
             );
 
+            //transparencia
+            // Habilitar transparencia
 
-                          //transparencia
-              // Habilitar transparencia
+            Materialplano.diffuseTexture.hasAlpha = true; // Indicar que la textura tiene un canal alfa
+            Materialplano.alpha = 1; // Establecer el nivel de transparencia (1 significa completamente transparente)
 
-              Materialplano.diffuseTexture.hasAlpha = true; // Indicar que la textura tiene un canal alfa
-              Materialplano.alpha = 1; // Establecer el nivel de transparencia (1 significa completamente transparente)
-
-              // Configurar la escala de la textura
-              //
-              Materialplano.diffuseTexture.uScale = 0.99; // Escala horizontal
-              Materialplano.diffuseTexture.vScale = 0.99; // Escala vertical
-
+            // Configurar la escala de la textura
+            //
+            Materialplano.diffuseTexture.uScale = 0.99; // Escala horizontal
+            Materialplano.diffuseTexture.vScale = 0.99; // Escala vertical
 
             contador++;
-
-      }else{
-        contador = 1;
+          } else {
+            contador = 1;
             Materialplano.diffuseTexture = new Texture(
               //"./assets/images/personaje-quieto.png",
               //  "./assets/nuevasImagenes/dinoQuieto1.png",
@@ -434,35 +417,25 @@ if (!gameOver){
               scene
             );
 
-              //transparencia
-          // Habilitar transparencia
+            //transparencia
+            // Habilitar transparencia
 
-          Materialplano.diffuseTexture.hasAlpha = true; // Indicar que la textura tiene un canal alfa
-          Materialplano.alpha = 1; // Establecer el nivel de transparencia (1 significa completamente transparente)
+            Materialplano.diffuseTexture.hasAlpha = true; // Indicar que la textura tiene un canal alfa
+            Materialplano.alpha = 1; // Establecer el nivel de transparencia (1 significa completamente transparente)
 
-          // Configurar la escala de la textura
-          //
-          Materialplano.diffuseTexture.uScale = 0.99; // Escala horizontal
-          Materialplano.diffuseTexture.vScale = 0.99; // Escala vertical
+            // Configurar la escala de la textura
+            //
+            Materialplano.diffuseTexture.uScale = 0.99; // Escala horizontal
+            Materialplano.diffuseTexture.vScale = 0.99; // Escala vertical
+          }
+        }
+      }
 
+      console.log("holis111");
+    },
 
-      }    
-
-
-
-}
-
-        
-
-
-
-
-          console.log("holis111")
-    }
-
-      ,100);
-
-
+    100
+  );
 
   //
   /* */
@@ -516,9 +489,8 @@ if (!gameOver){
   // PISO
   //MeshBuilder.CreateGround("ground", { width: 60, height: 3 }, scene);
 
-  let isJumping = false; // Bandera para evitar múltiples saltos
-
   function salto() {
+    //alert("hola")
     isJumping = true; // Evitar múltiples saltos simultáneos
     const jumpHeight = 5; // Altura del salto
     const duration = 1500; // Duración en milisegundos
@@ -576,6 +548,7 @@ if (!gameOver){
 
 let direction = 1; // Dirección inicial del movimiento: 1 significa hacia la derecha
 let gameOver = false;
+let isJumping = false; // Bandera para evitar múltiples saltos
 
 // Recuperar el récord guardado (si existe)
 let record = localStorage.getItem("record")
@@ -607,7 +580,7 @@ SumaPuntos();
 //detenerSumaPuntos();
 
 const onRender: OnRenderHandler = (scene) => {
-  console.log("aaaaaaaaaaaaa")
+  console.log("todo el tiempo esta andando");
   //console.log("aaa" + gameOver);
   if (!gameOver) {
     cartelGameOver.isVisible = false;

@@ -1,0 +1,31 @@
+<html>
+  <head>
+    <script>
+      console.log("hola mundo");
+
+      let a = 0;
+      let contador = 0;
+      let isjumping =false
+
+      for (let i = 0; i < 100; i++) {
+        a = a + 1; // a++;
+        console.log("Iteración número " + i);
+
+        if (isjumping) {
+          console.log("saltando.jpg");
+        } else {
+          if (contador == 0) {
+            console.log("corre1.jpg");
+            contador = 1;
+          } else {
+            console.log("corre2.jpg");
+            contador = 0;
+          }
+        }
+      }
+    </script>
+  </head>
+  <body>
+    hola mundo
+  </body>
+</html>
