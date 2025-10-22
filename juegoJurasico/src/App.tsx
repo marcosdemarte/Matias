@@ -154,8 +154,14 @@ const onSceneReady: OnSceneReadyHandler = (scene) => {
   //horizontal, vertical, profundida
   fondo.position.set(0, 7, 2);
 
+  /*
+if(){}esle
+
+*/
+
   //TEXTURA
   // Crear y configurar el material con una textura PNG
+
   const materialfondo = new StandardMaterial("materialfondo", scene);
   materialfondo.diffuseTexture = new Texture(
     "./assets/images/fondo.jpg",
@@ -429,6 +435,25 @@ const onSceneReady: OnSceneReadyHandler = (scene) => {
             Materialplano.diffuseTexture.vScale = 0.99; // Escala vertical
           }
         }
+      } else {
+        Materialplano.diffuseTexture = new Texture(
+          //"./assets/images/personaje-quieto.png",
+          //  "./assets/nuevasImagenes/dinoQuieto1.png",
+
+          "./assets/images/test_1.png",
+          scene
+        );
+
+        //transparencia
+        // Habilitar transparencia
+
+        Materialplano.diffuseTexture.hasAlpha = true; // Indicar que la textura tiene un canal alfa
+        Materialplano.alpha = 1; // Establecer el nivel de transparencia (1 significa completamente transparente)
+
+        // Configurar la escala de la textura
+        //
+        Materialplano.diffuseTexture.uScale = 0.99; // Escala horizontal
+        Materialplano.diffuseTexture.vScale = 0.99; // Escala vertical
       }
 
       console.log("holis111");
@@ -531,6 +556,24 @@ const onSceneReady: OnSceneReadyHandler = (scene) => {
   window.addEventListener("keydown", (event) => {
     if (event.code === "Space" && !isJumping) {
       salto();
+    }
+  });
+
+  // Evento para hacer que el plano salte hacia arriba
+  window.addEventListener("keydown", (event) => {
+    //alert(event.code)
+    if (event.code === "KeyH") {
+      const materialfondo = new StandardMaterial("materialfondo", scene);
+      materialfondo.diffuseTexture = new Texture(
+        "./assets/images/la-imagen-de-las-torturas.jpg",
+        scene
+      );
+      // Configurar la escala de la textura
+      materialfondo.diffuseTexture.uScale = 1.3; // Escala horizontal
+      materialfondo.diffuseTexture.vScale = 1.5; // Escala vertical
+
+      // Asignar el material al box
+      fondo.material = materialfondo;
     }
   });
 
