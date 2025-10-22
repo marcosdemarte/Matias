@@ -1,2 +1,2 @@
-1) hacer que el dino cuando salte, no mueva las patitas, y se muestre una nueva imagen del salto del dino( que es con las patas enrolladas. )
-2) aumentar el intervalo de los cactus. simple para un nuño de 5 años.
+1) dino game over, se picha.
+2) muro de las torturas, con la letra h.
