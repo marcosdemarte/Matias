@@ -1,5 +1,5 @@
 0) fomrato con ctrl+s
-1) dino game over, se picha.
-2) muro de las torturas, con la letra h.
-3) en movil, el boton no gira.
+1) dino game over, se picha. MARCOS
+2) muro de las torturas, con la letra h. MATI
+3) en movil, el boton no gira. cuando se activa la camara vertical "para movil"  el boton cambia su posicion a -90°. cuando cambia a camara horizontal "para monitor" , cambia su posicion  +90°. JUNTOS
 4) pausa cuando no se juega (error: muchos cacttus)

@@ -155,8 +155,6 @@ const onSceneReady: OnSceneReadyHandler = (scene) => {
   //horizontal, vertical, profundida
   fondo.position.set(0, 7, 2);
 
-
-
   /*
 if(){}esle
 
@@ -178,27 +176,28 @@ if(){}esle
   // Asignar el material al box
   fondo.material = materialfondo;
 
-
-
   //CREAR salon de las tortugas ninjas de la tortura
-  el_salon_de_las_tortillas = MeshBuilder.CreatePlane("ESDLT", { width: 40, height: 22 }, scene);
+  el_salon_de_las_tortillas = MeshBuilder.CreatePlane(
+    "ESDLT",
+    { width: 20, height: 12 },
+    scene
+  );
   //horizontal, vertical, profundida
-  el_salon_de_las_tortillas.position.set(0, 7, 2);
+  el_salon_de_las_tortillas.position.set(0, 7, -5);
 
-
-  const materialel_salon_de_las_tortillas = new StandardMaterial("materialel_salon_de_las_tortillas", scene);
+  const materialel_salon_de_las_tortillas = new StandardMaterial(
+    "materialel_salon_de_las_tortillas",
+    scene
+  );
   materialel_salon_de_las_tortillas.diffuseTexture = new Texture(
     "./assets/images/invisible!!!.jpg",
     scene
   );
 
-    //transparencia
-    // Habilitar transparencia
-    materialel_salon_de_las_tortillas.diffuseTexture.hasAlpha = true; // Indicar que la textura tiene un canal alfa
-    materialel_salon_de_las_tortillas.alpha = 0; // Establecer el nivel de transparencia (1 significa completamente opaco)
-
-
-
+  //transparencia
+  // Habilitar transparencia
+  materialel_salon_de_las_tortillas.diffuseTexture.hasAlpha = true; // Indicar que la textura tiene un canal alfa
+  materialel_salon_de_las_tortillas.alpha = 0; // Establecer el nivel de transparencia (1 significa completamente opaco)
 
   // Configurar la escala de la textura
   materialel_salon_de_las_tortillas.diffuseTexture.uScale = 1; // Escala horizontal
@@ -206,9 +205,6 @@ if(){}esle
 
   // Asignar el material al box
   el_salon_de_las_tortillas.material = materialel_salon_de_las_tortillas;
-
-
-
 
   // Crear un plano para mostrar el texto
   const barraSuperior = MeshBuilder.CreatePlane(
@@ -237,6 +233,8 @@ if(){}esle
   button.height = "40px";
   button.color = "white";
   button.background = "blue";
+  button.left = "10px";
+  button.top = "90px";
 
   let colisionesHabilitadas = true;
 
@@ -595,29 +593,41 @@ if(){}esle
   });
 
   // El salon de las nose a este punto? torturas mecanicasssssS
+
   window.addEventListener("keydown", (event) => {
     //alert(event.code)
     if (event.code === "KeyH") {
-      const materialel_salon_de_las_tortillas = new StandardMaterial("materialel_salon_de_las_tortillas", scene);
+      const materialel_salon_de_las_tortillas = new StandardMaterial(
+        "materialfondo",
+        scene
+      );
       materialel_salon_de_las_tortillas.diffuseTexture = new Texture(
         "./assets/images/la-imagen-de-las-torturas.jpg",
         scene
       );
       // Configurar la escala de la textura
-      materialel_salon_de_las_tortillas.diffuseTexture.uScale = 1.3; // Escala horizontal
-      materialel_salon_de_las_tortillas.diffuseTexture.vScale = 1.5; // Escala vertical
+      materialel_salon_de_las_tortillas.diffuseTexture.uScale = 1; // Escala horizontal
+      materialel_salon_de_las_tortillas.diffuseTexture.vScale = 1; // Escala vertical
 
       // Asignar el material al box
+      el_salon_de_las_tortillas.isVisible = true;
+      button.isVisible = true;
+
       el_salon_de_las_tortillas.material = materialel_salon_de_las_tortillas;
 
+      //transparencia
+      // Habilitar transparencia
+      materialel_salon_de_las_tortillas.diffuseTexture.hasAlpha = false; // Indicar que la textura tiene un canal alfa
+      materialel_salon_de_las_tortillas.alpha = 1; // Establecer el nivel de transparencia (1 significa completamente opaco)
+    }
+  });
 
-    //transparencia
-    // Habilitar transparencia
-    materialel_salon_de_las_tortillas.diffuseTexture.hasAlpha = false; // Indicar que la textura tiene un canal alfa
-    materialel_salon_de_las_tortillas.alpha = 1; // Establecer el nivel de transparencia (1 significa completamente opaco)
-
-
-      
+  window.addEventListener("keyup", (event) => {
+    //alert(event.code)
+    if (event.code === "KeyH") {
+      // Asignar el material al box
+      el_salon_de_las_tortillas.isVisible = false;
+      button.isVisible = false;
     }
   });
 
@@ -698,18 +708,6 @@ const onRender: OnRenderHandler = (scene) => {
          cartelGameOver.isVisible = false;
 */
   // Detectar colisión entre el plano y el cactus
-
-
-
-
-
-
-
-
-
-
-
-
 };
 
 const App: FC = () => (
