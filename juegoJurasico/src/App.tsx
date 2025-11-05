@@ -473,7 +473,7 @@ if(){}esle
           //"./assets/images/personaje-quieto.png",
           //  "./assets/nuevasImagenes/dinoQuieto1.png",
 
-          "./assets/images/test_1.png",
+          "./assets/images/dino-fuck.png",
           scene
         );
 
