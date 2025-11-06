@@ -29,4 +29,9 @@
 3) en movil, el boton no gira. cuando se activa la camara vertical "para movil"  el boton cambia su posicion a -90°. cuando cambia a camara horizontal "para monitor" , cambia su posicion  +90°. JUNTOS
 4) pausa cuando no se juega (error: muchos cacttus)
 5) cartel targuan ninjas invisble el boton reiniciar.
+6) que el dino no salte, en game over.
+7) boton reiniciar no se en cunado tocan "h"
+8) bajar  nubes . (tocar ilustrator)
+9) lengua dino, mas oscura, y no tan ancha. mas larga, mas reptil.
+10) git tag 1.0 relese
 
