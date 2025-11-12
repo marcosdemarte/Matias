@@ -20,18 +20,20 @@
    ██║   ██╔══██║██╔══██╗██╔══╝  ██╔══██║╚════██║
    ██║   ██║  ██║██║  ██║███████╗██║  ██║███████║
    ╚═╝   ╚═╝  ╚═╝╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝╚══════╝
+          
                                                  
+1) -FINALIZADO- dino game over, se picha. MARCOS 
+2) -FINALIZADO- que el dino no salte, en game over.
+3) -FINALIZADO- boton reiniciar no se ve en cunado tocan "h"
+4) -FINALIZADO- en movil, el boton no gira. cuando se activa la camara vertical "para movil"  el boton cambia su posicion a -90°. cuando cambia a camara horizontal "para monitor" , cambia su posicion  +90°. JUNTOS
+5) -FINALIZADO- git tag 1.0 relese
+6) bajar  nubes . (tocar ilustrator)
+7) lengua dino, mas oscura, y no tan ancha. mas larga, mas reptil.
+8) fomrato prettier con ctrl+s
+9) -FINALIZADO- muro de las torturas, con la letra h. MATI
+10) pausa cuando no se juega (error: muchos cacttus)
+11) -FINALIZADO- cartel targuan ninjas invisble el boton reiniciar.
 
 
-0) fomrato prettier con ctrl+s
-1) dino game over, se picha. MARCOS
-2) muro de las torturas, con la letra h. MATI
-3) en movil, el boton no gira. cuando se activa la camara vertical "para movil"  el boton cambia su posicion a -90°. cuando cambia a camara horizontal "para monitor" , cambia su posicion  +90°. JUNTOS
-4) pausa cuando no se juega (error: muchos cacttus)
-5) cartel targuan ninjas invisble el boton reiniciar.
-6) que el dino no salte, en game over.
-7) boton reiniciar no se en cunado tocan "h"
-8) bajar  nubes . (tocar ilustrator)
-9) lengua dino, mas oscura, y no tan ancha. mas larga, mas reptil.
-10) git tag 1.0 relese
+
 
