@@ -106,10 +106,12 @@ let fondo: Mesh;
 let el_salon_de_las_tortillas: any;
 let boton: any;
 let button: any;
+let estadoCamara: string;
 
 const onSceneReady: OnSceneReadyHandler = (scene) => {
   function ajustarCamaraSegunDispositivo(camera) {
     if (window.innerWidth <= 1000) {
+      estadoCamara = "movil";
       // Si el ancho es menor a 768px, asumimos que es móvil
       camera.position.set(0, 7, -40); // x horizontal, y vertical ,z profundidad
       // This targets the camera to scene origin
@@ -122,6 +124,7 @@ const onSceneReady: OnSceneReadyHandler = (scene) => {
       );
       camera.rotationQuaternion = inclinacionCabeza;
     } else {
+      estadoCamara = "monitor";
       camera.position.set(0, 7, -20); // Posición normal en escritorio
       // This targets the camera to scene origin
       camera.setTarget(new Vector3(0, 7, 0));
@@ -148,7 +151,7 @@ const onSceneReady: OnSceneReadyHandler = (scene) => {
 
   //CREAR BOX
   //plano = MeshBuilder.CreatePlane('plano', { size: 2 }, scene)
-  plano = MeshBuilder.CreatePlane("plano", { width: 4.9, height: 2.5 }, scene);
+  plano = MeshBuilder.CreatePlane("plano", { width: 4.9, height: 3 }, scene);
 
   //CREAR fondo
   fondo = MeshBuilder.CreatePlane("fondo", { width: 40, height: 30 }, scene);
@@ -489,7 +492,7 @@ if(){}esle
         Materialplano.diffuseTexture.vScale = 0.99; // Escala vertical
       }
 
-      console.log("holis111");
+      //console.log("holis111");
     },
 
     100
@@ -548,33 +551,36 @@ if(){}esle
   //MeshBuilder.CreateGround("ground", { width: 60, height: 3 }, scene);
 
   function salto() {
-    //alert("hola")
-    isJumping = true; // Evitar múltiples saltos simultáneos
-    const jumpHeight = 5; // Altura del salto
-    const duration = 1500; // Duración en milisegundos
+    if (gameOver == true) {
+    } else {
+      //alert("hola")
+      isJumping = true; // Evitar múltiples saltos simultáneos
+      const jumpHeight = 5; // Altura del salto
+      const duration = 1500; // Duración en milisegundos
 
-    // Posición inicial y final del salto
-    const startY = plano.position.y;
-    const targetY = startY + jumpHeight;
+      // Posición inicial y final del salto
+      const startY = plano.position.y;
+      const targetY = startY + jumpHeight;
 
-    // Subir y bajar el plano animando únicamente el eje Y
-    const startTime = performance.now();
-    const animationInterval = setInterval(() => {
-      const elapsed = performance.now() - startTime;
-      if (elapsed <= duration / 2) {
-        // Fase ascendente
-        plano.position.y = startY + (elapsed / (duration / 2)) * jumpHeight;
-      } else if (elapsed <= duration) {
-        // Fase descendente
-        plano.position.y =
-          targetY - ((elapsed - duration / 2) / (duration / 2)) * jumpHeight;
-      } else {
-        // Finaliza el salto
-        plano.position.y = startY;
-        clearInterval(animationInterval);
-        isJumping = false; // Permitir otro salto
-      }
-    }, 16); // Aproximadamente 60 FPS
+      // Subir y bajar el plano animando únicamente el eje Y
+      const startTime = performance.now();
+      const animationInterval = setInterval(() => {
+        const elapsed = performance.now() - startTime;
+        if (elapsed <= duration / 2) {
+          // Fase ascendente
+          plano.position.y = startY + (elapsed / (duration / 2)) * jumpHeight;
+        } else if (elapsed <= duration) {
+          // Fase descendente
+          plano.position.y =
+            targetY - ((elapsed - duration / 2) / (duration / 2)) * jumpHeight;
+        } else {
+          // Finaliza el salto
+          plano.position.y = startY;
+          clearInterval(animationInterval);
+          isJumping = false; // Permitir otro salto
+        }
+      }, 16); // Aproximadamente 60 FPS
+    }
   }
 
   window.addEventListener("pointerdown", () => {
@@ -597,6 +603,7 @@ if(){}esle
   window.addEventListener("keydown", (event) => {
     //alert(event.code)
     if (event.code === "KeyH") {
+      letraH = true;
       const materialel_salon_de_las_tortillas = new StandardMaterial(
         "materialfondo",
         scene
@@ -628,6 +635,7 @@ if(){}esle
       // Asignar el material al box
       el_salon_de_las_tortillas.isVisible = false;
       button.isVisible = false;
+      letraH = false;
     }
   });
 
@@ -643,6 +651,7 @@ if(){}esle
  * Will run on every frame render.  We are spinning the box on y-axis.
  */
 
+let letraH = false;
 let direction = 1; // Dirección inicial del movimiento: 1 significa hacia la derecha
 let gameOver = false;
 let isJumping = false; // Bandera para evitar múltiples saltos
@@ -677,15 +686,35 @@ SumaPuntos();
 //detenerSumaPuntos();
 
 const onRender: OnRenderHandler = (scene) => {
-  console.log("todo el tiempo esta andando");
+  //console.log("todo el tiempo esta andando");
   //console.log("aaa" + gameOver);
-  if (!gameOver) {
+
+  if (window.innerWidth <= 1000) {
+    estadoCamara = "movil";
+  } else {
+    estadoCamara = "monitor";
+  }
+  console.log("estadoCamara%%%%%%%%%%%%%%%%%%");
+  console.log(estadoCamara);
+
+  if (estadoCamara == "movil") {
+    button.rotation = Math.PI / 2;
+  }else{
+       button.rotation = 0;
+  }
+
+  if (gameOver == false) {
     cartelGameOver.isVisible = false;
     button.isVisible = false;
     //console.log("gameover false!!!")
   } else {
     cartelGameOver.isVisible = true;
-    button.isVisible = true;
+    if (letraH == true) {
+      button.isVisible = false;
+    } else {
+      button.isVisible = true;
+    }
+
     detenerSumaPuntos();
     direction = 0;
   }
