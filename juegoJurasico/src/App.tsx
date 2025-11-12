@@ -225,7 +225,7 @@ if(){}esle
     textBlock.text = `Record: ${record}  Puntos: ${puntos}`;
   }, 1000);
 
-  textBlock.color = "white";
+  textBlock.color = "black";
   textBlock.fontSize = 40;
   advancedTexture.addControl(textBlock);
 
